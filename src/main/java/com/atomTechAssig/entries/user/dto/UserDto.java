@@ -10,6 +10,22 @@ public class UserDto {
         this.lastName = lastName;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public interface FirstNameStep {
         LastNameStep withFirstName(String firstName);
     }
@@ -29,7 +45,7 @@ public class UserDto {
         private Builder() {
         }
 
-        public static FirstNameStep user() {
+        public static FirstNameStep userDto() {
             return new Builder();
         }
 

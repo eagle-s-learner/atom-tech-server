@@ -52,10 +52,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public interface IdStep {
-        FirstNameStep withId(Long id);
-    }
-
     public interface FirstNameStep {
         LastNameStep withFirstName(String firstName);
     }
@@ -68,40 +64,35 @@ public class User {
         User build();
     }
 
-    public static class Builder implements IdStep, FirstNameStep, LastNameStep, BuildStep {
+    public static class Builder implements FirstNameStep, LastNameStep, BuildStep {
         private Long id;
         private String firstName;
         private String lastName;
 
-        private Builder() {
-        }
+        private Builder() {}
 
-        public static IdStep user() {
+        public static Builder user() {
             return new Builder();
         }
 
-        @Override
-        public FirstNameStep withId(Long id) {
+        public Builder withId(Long id) {
             this.id = id;
             return this;
         }
 
-        @Override
-        public LastNameStep withFirstName(String firstName) {
+        public Builder withFirstName(String firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        @Override
-        public BuildStep withLastName(String lastName) {
+        public Builder withLastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        @Override
         public User build() {
             return new User(
-                this.id,
+                this.id, // will be null if not set — that's fine for JPA
                 this.firstName,
                 this.lastName
             );
